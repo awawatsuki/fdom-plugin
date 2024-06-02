@@ -9,8 +9,8 @@ namespace SamplePlugin.Manager
     public class DebtManager
     {
         public static int interestRate = 0;
-        public static int gilTarget = 0;
         public static DateTime endDate;
+        public static int gilTarget = 0;
         public void incrementInterest(int i)
         {
             interestRate += i;
@@ -26,9 +26,24 @@ namespace SamplePlugin.Manager
             return false;
         }
 
-        public void generateKey(int interest, DateTime enddate, int gilamount)
+        public static string generateKey(int interest, DateTime enddate, int gilamount)
         {
-            string prelimKey = interest.ToString() + "|" + enddate.ToString() + "|" + gilamount.ToString();
+            var prelimKey = System.Text.Encoding.UTF8.GetBytes(interest.ToString() + "|" + enddate.ToString() + "|" + gilamount.ToString());
+            return System.Convert.ToBase64String(prelimKey);
+        }
+
+        public static string decodeKey(string key)
+        {
+            var encodedKey = System.Convert.FromBase64String(key);
+            return System.Text.Encoding.UTF8.GetString(encodedKey);
+        }
+
+        public static void setKeyValues(string key)
+        {
+            foreach (char c in key) 
+            {
+
+            }
         }
     }
 }

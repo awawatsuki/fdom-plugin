@@ -48,9 +48,9 @@ public class MainWindow : Window, IDisposable
         }
 
         //Interest Rate Descriptor
-        pos = new Vector2(50, 50);
+        pos = new Vector2(40, 50);
         ImGui.SetCursorPos(pos);
-        ImGui.Text("Interest Rate");
+        ImGui.Text("Set interest rate.");
 
         //Actual Rate and %
         pos = new Vector2(95, 78);
@@ -74,9 +74,9 @@ public class MainWindow : Window, IDisposable
         }
 
         //End Date Descriptor
-        pos = new Vector2(250, 50);
+        pos = new Vector2(255, 50);
         ImGui.SetCursorPos(pos);
-        ImGui.Text("Enter end date.");
+        ImGui.Text("Set end date.");
 
         //End Date Input
         pos = new Vector2(250, 75);
@@ -84,5 +84,10 @@ public class MainWindow : Window, IDisposable
         ImGui.PushItemWidth(130);
         ImGui.InputTextWithHint("##inputdate", "MM/dd/yyyy", ref buf, (uint)"MM/dd/yyyy".Length);
         ImGui.PopItemWidth();
+
+        //Gil Amount Descriptor
+        pos = new Vector2(200, 150);
+        ImGui.SetCursorPos(pos);
+        ImGui.Text("Set Gil target.");
     }
 }
