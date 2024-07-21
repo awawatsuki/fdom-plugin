@@ -1,12 +1,12 @@
 {
-  "Author": "your name here",
-  "Name": "Sample Plugin",
-  "Punchline": "A short one-liner that shows up in /xlplugins.",
-  "Description": "A description that shows up in /xlplugins. List any major slash-command(s).",
+  "Author": "MTsuki",
+  "Name": "Debt Plugin",
+  "Punchline": "Findom",
+  "Description": "Terrorize your submissive friends with this one cool trick",
   "ApplicableVersion": "any",
   "Tags": [
-    "sample",
-    "plugin",
-    "goats"
+    "debt",
+    "findom",
+    "bdsm"
   ]
 }

@@ -12,8 +12,9 @@ namespace SamplePlugin.Windows;
 public class MainWindow : Window, IDisposable
 {
     private Plugin Plugin;
-    private DebtManager DebtManager;
-    private string buf = string.Empty;
+    private DebtManager debtManager;
+    private string dateInput = string.Empty;
+    private string amountInput = string.Empty;
     public MainWindow(Plugin plugin, DebtManager debtmanager)
         : base("Debt Plugin##00", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
     {
@@ -23,7 +24,7 @@ public class MainWindow : Window, IDisposable
             MaximumSize = new Vector2(300,400)
         };
         Plugin = plugin;
-        DebtManager = debtmanager;
+        debtManager = debtmanager;
     }
 
     public void Dispose() { }
@@ -36,7 +37,7 @@ public class MainWindow : Window, IDisposable
         ImGui.SetCursorPos(pos);
         if (ImGui.Button("-1"))
         {
-            DebtManager.incrementInterest(-1);
+            debtManager.incrementInterest(-1);
         }
 
         //+1
@@ -44,7 +45,7 @@ public class MainWindow : Window, IDisposable
         ImGui.SetCursorPos(pos);
         if (ImGui.Button("+1"))
         {
-            DebtManager.incrementInterest(1);
+            debtManager.incrementInterest(1);
         }
 
         //Interest Rate Descriptor
@@ -62,7 +63,7 @@ public class MainWindow : Window, IDisposable
         ImGui.SetCursorPos(pos);
         if (ImGui.Button("+5"))
         {
-            DebtManager.incrementInterest(5);
+            debtManager.incrementInterest(5);
         }
 
         //-5
@@ -70,7 +71,7 @@ public class MainWindow : Window, IDisposable
         ImGui.SetCursorPos(pos);
         if (ImGui.Button("-5"))
         {
-            DebtManager.incrementInterest(-5);
+            debtManager.incrementInterest(-5);
         }
 
         //End Date Descriptor
@@ -82,12 +83,23 @@ public class MainWindow : Window, IDisposable
         pos = new Vector2(250, 75);
         ImGui.SetCursorPos(pos);
         ImGui.PushItemWidth(130);
-        ImGui.InputTextWithHint("##inputdate", "MM/dd/yyyy", ref buf, (uint)"MM/dd/yyyy".Length);
+        ImGui.InputTextWithHint("##inputdate", "MM/dd/yyyy", ref dateInput, (uint)"MM/dd/yyyy".Length);
         ImGui.PopItemWidth();
 
         //Gil Amount Descriptor
-        pos = new Vector2(200, 150);
+        pos = new Vector2(150, 125);
         ImGui.SetCursorPos(pos);
         ImGui.Text("Set Gil target.");
+
+        //Gil Amount Input
+        pos = new Vector2(150, 150);
+        ImGui.SetCursorPos(pos);
+        ImGui.PushItemWidth(130);
+        ImGui.InputTextWithHint("##gilamount", "999,999,999", ref amountInput, (uint)"999,999,999".Length);
+        ImGui.PopItemWidth();
+
+        pos = new Vector2(150, 200);
+        ImGui.SetCursorPos(pos);
+        ImGui.Text("Generate key:");
     }
 }

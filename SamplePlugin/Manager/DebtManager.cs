@@ -8,7 +8,7 @@ namespace SamplePlugin.Manager
 {
     public class DebtManager
     {
-        public static int interestRate = 0;
+        public static int interestRate = Math.Clamp(0, 0, 999);
         public static DateTime endDate;
         public static int gilTarget = 0;
         public void incrementInterest(int i)
