@@ -4,6 +4,7 @@ using System.Reflection.Metadata.Ecma335;
 using Dalamud.Interface.Internal;
 using Dalamud.Interface.Utility;
 using Dalamud.Interface.Windowing;
+using FFXIVClientStructs.FFXIV.Client.System.Input;
 using ImGuiNET;
 using SamplePlugin.Manager;
 
@@ -15,6 +16,8 @@ public class MainWindow : Window, IDisposable
     private DebtManager debtManager;
     private string dateInput = string.Empty;
     private string amountInput = string.Empty;
+    private string keyOutput = string.Empty;
+    private string keyCopied = string.Empty;
     public MainWindow(Plugin plugin, DebtManager debtmanager)
         : base("Debt Plugin##00", ImGuiWindowFlags.NoScrollbar | ImGuiWindowFlags.NoScrollWithMouse)
     {
@@ -98,8 +101,29 @@ public class MainWindow : Window, IDisposable
         ImGui.InputTextWithHint("##gilamount", "999,999,999", ref amountInput, (uint)"999,999,999".Length);
         ImGui.PopItemWidth();
 
-        pos = new Vector2(150, 200);
+        pos = new Vector2(100, 200);
         ImGui.SetCursorPos(pos);
-        ImGui.Text("Generate key:");
+        if (ImGui.Button("Generate Key and Copy"))
+        {
+            if (DebtManager.interestRate >= 0 && dateInput != null && amountInput != null)
+            {
+                var gilAmount = amountInput.Replace(",", string.Empty);
+                keyOutput = DebtManager.generateKey(DebtManager.interestRate, DateTime.Parse(dateInput), int.Parse(gilAmount));
+                ImGui.SetClipboardText(keyOutput);
+                keyCopied = "Key successfully copied to clipboard";
+                DebtManager.interestRate = 0;
+                dateInput = string.Empty;
+                amountInput = string.Empty;
+            }
+            else
+            {
+                keyCopied = string.Empty;
+            }
+        }
+
+        pos = new Vector2(50, 250);
+        ImGui.SetCursorPos(pos);
+        ImGui.Text(keyCopied);
+
     }
 }
